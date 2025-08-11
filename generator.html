@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayo's Brutal Clapback Generator</title>
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --accent: #ff2a4d;
+            --text: #e0e0e0;
+            --dark: #000000;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 42, 77, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 42, 77, 0.1) 0%, transparent 20%);
+            overflow-x: hidden;
+        }
+        body {
+    background-image: url('shadow.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    /* Add a dark overlay to ensure text remains readable */
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+    z-index: -1;
+}
+        header {
+            background-color: var(--dark);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 10;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--accent), #ff8a9d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 42, 77, 0.5);
+            letter-spacing: -1px;
+        }
+        
+        .tagline {
+            font-style: italic;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .clapback-container {
+            background-color: var(--secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            border-left: 4px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .clapback-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+        
+        .insult {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            font-weight: bold;
+            color: #ccc;
+            font-style: italic;
+        }
+        
+        .clapback {
+            font-size: 1.3rem;
+            color: var(--accent);
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            font-weight: bold;
+        }
+        
+        .clapback.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 42, 77, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 42, 77, 0.5);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        button:hover::after {
+            opacity: 1;
+        }
+        
+        .reveal-btn {
+            background-color: var(--secondary);
+            border: 2px solid var(--accent);
+        }
+        
+        .rating {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .star {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #444;
+            transition: all 0.3s ease;
+        }
+        
+        .star:hover {
+            transform: scale(1.2);
+        }
+        
+        .star.active {
+            color: gold;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+        }
+        
+        .counter {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--dark);
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: auto;
+            border-top: 1px solid #333;
+        }
+        
+        .categories {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+        
+        .category {
+            padding: 0.5rem 1rem;
+            background-color: rgba(255, 42, 77, 0.2);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--accent);
+        }
+        
+        .category:hover, .category.active {
+            background-color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .clapback-container {
+                padding: 1.5rem;
+                min-height: 200px;
+            }
+            
+            .insult {
+                font-size: 1.2rem;
+            }
+            
+            .clapback {
+                font-size: 1.1rem;
+            }
+            
+            button {
+                padding: 0.7rem 1rem;
+                font-size: 0.8rem;
+                min-width: 150px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Blood splatter effect */
+        .blood {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,20 Q50,10 70,20 Q80,30 75,50 Q70,70 50,80 Q30,70 25,50 Q20,30 30,20" fill="%23ff2a4d" opacity="0.3"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        /* Share button styling */
+        .share-btn {
+            background: #333;
+            border: 1px solid #555;
+        }
+        
+        .share-btn:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ayo's Brutal Clapback Generator</h1>
+        <p class="tagline">"Words hurt, but these will leave scars."</p>
+    </header>
+    
+    <div class="container">
+        <div class="categories">
+            <div class="category active" data-category="all">All</div>
+            <div class="category" data-category="appearance">Appearance</div>
+            <div class="category" data-category="intelligence">Intelligence</div>
+            <div class="category" data-category="family">Family</div>
+            <div class="category" data-category="life">Life Choices</div>
+        </div>
+        
+        <div class="clapback-container">
+            <div class="insult" id="insult">Loading your dose of brutality...</div>
+            <div class="clapback" id="clapback"></div>
+        </div>
+        
+        <div class="controls">
+            <button id="new-clapback-btn">Generate New</button>
+            <button id="reveal-btn" class="reveal-btn">Reveal Clapback</button>
+            <button id="share-btn" class="share-btn">Share This Burn</button>
+        </div>
+        
+        <div class="rating">
+            <div class="star" data-rating="1">★</div>
+            <div class="star" data-rating="2">★</div>
+            <div class="star" data-rating="3">★</div>
+            <div class="star" data-rating="4">★</div>
+            <div class="star" data-rating="5">★</div>
+        </div>
+        
+        <div class="counter">
+            Clapbacks generated: <span id="clapback-counter">0</span> | Souls crushed: <span id="souls-counter">0</span>
+        </div>
+    </div>
+    
+    <footer>
+        Warning: These clapbacks are designed to be brutally savage. Use responsibly (or irresponsibly, i don't care).
+        <br>
+        © 2025 Ayo's Brutal Clapbacks | Not liable for any emotional damage caused
+    </footer>
+    
+    <script>
+        // Clapback database
+        const clapbacks = [
+            {
+                insult: "You look like you were drawn by a toddler with crayons.",
+                clapback: "And you look like you were designed by a drunk 3D artist who forgot to enable symmetry.",
+                category: "appearance"
+            },
+            {
+                insult: "You look like a before picture with no after.",
+                clapback: "And you look like the 'caution' example on a plastic surgery warning label.",
+                category: "apperance"
+            },
+            {
+                insult: "Did you fall from heaven? Because your face looks like it hit every branch on the way down.",
+                clapback: "No, but I can tell you crawled out of hell—your personality matches the decor.",
+                category:"apperance"
+            },
+            {
+                insult: "Your face could scare a hungry dog off a meat truck.",
+                clapback: "And yours could make a blind kid ask for a refund on his Braille.",
+                category:"apperance"
+            },
+            {
+                insult: "You’re so ugly, when you look in the mirror, your reflection looks away.",
+                clapback: "And when you look in the mirror, yours calls the police.",
+                category:"apperance"
+            },
+            {
+               insult: "You look like a WiFi signal… weak and barely there.",
+               clapback: "And you look like a pop-up ad—unwanted and impossible to close.",
+               category :"apperance"
+            },
+            {
+                insult: "You're so dumb, you couldn't pour water out of a boot if the instructions were on the heel.",
+                clapback: "And you're so useless, your parents used your baby pictures as a warning to others.",
+                category: "intelligence"
+            },
+            {
+                insult: "Your face looks like it caught fire and someone tried to put it out with a fork.",
+                clapback: "Yours looks like it was put out with a chainsaw. At least mine has character.",
+                category: "appearance"
+            },
+            {
+                insult: "I bet your family tree is a straight line.",
+                clapback: "And yours is a wreath. At least mine has roots.",
+                category: "family"
+            },
+            {
+                insult: "You’re the reason they put instructions on shampoo.",
+                clapback: "And you're the reason they put 'Do Not Eat' on silica gel packets.",
+                category: "intelligence"
+            },
+            {
+                insult: "You’re so ugly, when you were born, the doctor slapped your mother.",
+                clapback: "And when you were born, he slapped everyone in the room for letting it happen.",
+                category: "appearance"
+            },
+            {
+                insult: "Your life is so sad, I get a charity tax break just by hanging out with you.",
+                clapback: "And yours is so pathetic, even your imaginary friends ghosted you.",
+                category: "life"
+            },
+            {
+                insult: "You're so poor, you can't even afford to pay attention.",
+                clapback: "And you're so broke, your shadow left you for someone with better lighting.",
+                category: "life"
+            },
+            {
+                insult: "You’re so fat, your blood type is Ragu.",
+                clapback: "And you're so skinny, I can see your future—and it's bleak.",
+                category: "appearance"
+            },
+            {
+                insult: "You're so irrelevant, your birth certificate is an apology letter from the condom factory.",
+                clapback: "And yours is a 'return to sender' note from the abortion clinic.",
+                category: "life"
+            },
+            {
+                insult: "You’re so stupid, you thought Tupac was a country.",
+                clapback: "And you’re so clueless, you think 'Google it' is a threat.",
+                category: "intelligence"
+            },
+            {
+                insult: "You’re so old, your first pet was a dinosaur.",
+                clapback: "And you’re so ancient, your memory is stored in hieroglyphs.",
+                category: "life"
+            },
+            {
+                insult: "You’re so weak, you couldn’t lift a feather with both hands.",
+                clapback: "And you’re so fragile, your ego shatters when someone says 'no.'",
+                category: "appearance"
+            },
+            {
+                insult: "You’re so boring, even your shadow leaves you to go do something fun.",
+                clapback: "And you’re so dull, your reflection yawns when you look in the mirror.",
+                category: "life"
+            },
+            {
+                insult: "You’re so unlucky, if you fell into a barrel of tits, you’d come out sucking your thumb.",
+                clapback: "And if you fell into a barrel of luck, you’d still come out empty-handed.",
+                category: "life"
+            },
+            {
+    insult: "You're so ugly, when you were born the doctor put tinted windows on your incubator.",
+    clapback: "And when you were born, your parents put you up for adoption but even the orphanage said no.",
+    category: "appearance"
+},
+{
+    insult: "Your personality is like a screensaver - pointless and easy to ignore.",
+    clapback: "And yours is like a virus warning - annoying and everyone wants to delete it.",
+    category: "life"
+},
+{
+    insult: "You're so stupid, you thought Tupac was a country.",
+    clapback: "And you're so dumb you tried to charge your phone in the microwave.",
+    category: "intelligence"
+},
+{
+    insult: "Your family tree must be a cactus because everyone on it is a prick.",
+    clapback: "And yours is a stump because your bloodline ends with you.",
+    category: "family"
+},
+{
+    insult: "You're so poor you can't even afford to pay attention.",
+    clapback: "And you're so broke your shadow works a second job.",
+    category: "life"
+},
+{
+    insult: "You look like you were designed by IKEA - flat-packed and missing pieces.",
+    clapback: "And you look like you were assembled by a drunk toddler with glue.",
+    category: "appearance"
+},
+{
+    insult: "You're so irrelevant your birth certificate is an apology letter from the condom factory.",
+    clapback: "And yours is a 'return to sender' from the abortion clinic.",
+    category: "life"
+},
+{
+    insult: "Your face looks like it was on fire and someone put it out with a fork.",
+    clapback: "Yours looks like they used a chainsaw. At least mine has character.",
+    category: "appearance"
+},
+{
+    insult: "You're so dumb you bring a dictionary to a spelling bee.",
+    clapback: "And you're so stupid you bring a fork to a soup kitchen.",
+    category: "intelligence"
+},
+{
+    insult: "Your mom should have swallowed you.",
+    clapback: "And yours should have spit.",
+    category: "family"
+},
+{
+    insult: "You're so lazy you think 'two-step verification' is too much exercise.",
+    clapback: "And you're so useless you couldn't even be used as a bad example.",
+    category: "life"
+},
+{
+    insult: "You're so fake, even your Instagram filters are disappointed.",
+    clapback: "And you're so plastic, Barbie sued you for copyright infringement.",
+    category: "appearance"
+},
+{
+    insult: "You're so stupid you tried to wake up a sleeping bag.",
+    clapback: "And you're so dumb you thought Meow Mix was a DJ.",
+    category: "intelligence"
+},
+{
+    insult: "Your parents are siblings, aren't they?",
+    clapback: "And yours are strangers because nobody claims you.",
+    category: "family"
+},
+{
+    insult: "You're so poor you can't even afford to give a fuck.",
+    clapback: "And you're so broke your wallet coughs when you open it.",
+    category: "life"
+},
+{
+    insult: "You look like you were drawn by a police sketch artist from a blind witness.",
+    clapback: "And you look like you were described over the phone as 'ugly, but in a weird way'.",
+    category: "appearance"
+},
+{
+    insult: "You're so dumb you think WiFi is pronounced 'wiffy'.",
+    clapback: "And you're so stupid you thought Bluetooth was a dental condition.",
+    category: "intelligence"
+},
+{
+    insult: "Your family crest is a white flag because everyone gives up on you.",
+    clapback: "And yours is a participation trophy because that's all you'll ever get.",
+    category: "family"
+},
+{
+    insult: "You're so boring your yawns yawn.",
+    clapback: "And you're so dull watching paint dry is your idea of extreme sports.",
+    category: "life"
+},
+{
+    insult: "You look like a before picture with no after.",
+    clapback: "And you look like the 'don't' example in a makeover show.",
+    category: "appearance"
+},
+{
+    insult: "You're so stupid you thought the 'D' in 'D-Day' stood for 'delicious'.",
+    clapback: "And you're so dumb you think 'Netflix and chill' is about temperature control.",
+    category: "intelligence"
+},
+{
+    insult: "Your family reunion looks like a missing persons poster.",
+    clapback: "And yours looks like a police lineup.",
+    category: "family"
+},
+{
+    insult: "You're so useless even your shadow left you.",
+    clapback: "And you're so pathetic your reflection avoids eye contact.",
+    category: "life"
+},
+{
+    insult: "You look like you were designed by someone who only heard humans described.",
+    clapback: "And you look like a first draft that was never revised.",
+    category: "appearance"
+},
+{
+    insult: "You're so dumb you think a quarterback is a refund.",
+    clapback: "And you're so stupid you thought 'Google it' was a threat.",
+    category: "intelligence"
+},
+{
+    insult: "Your family tree is a wreath.",
+    clapback: "And yours is a straight line.",
+    category: "family"
+},
+{
+    insult: "You're so lazy you consider blinking exercise.",
+    clapback: "And you're so unmotivated your spirit animal is a sloth on antidepressants.",
+    category: "life"
+},
+{
+    insult: "You look like a Picasso painting - all the pieces are there but nothing's where it should be.",
+    clapback: "And you look like a kindergarten art project - messy and disappointing.",
+    category: "appearance"
+},
+{
+    insult: "You're so stupid you think 'LOL' means 'lots of love'.",
+    clapback: "And you're so dumb you thought 'BRB' was a sandwich.",
+    category: "intelligence"
+},
+{
+    insult: "Your parents are so disappointed they keep your baby pictures as a warning to others.",
+    clapback: "And yours are so ashamed they tell people they found you in a dumpster.",
+    category: "family"
+},
+{
+    insult: "You're so boring your autobiography would be called 'Nothing Happened'.",
+    clapback: "And yours would be 'How to Disappoint in 10 Easy Chapters'.",
+    category: "life"
+},
+{
+    insult: "You look like you were drawn by someone who'd never seen a human before.",
+    clapback: "And you look like you were described over the phone by someone who hated you.",
+    category: "appearance"
+},
+{
+    insult: "You're so dumb you think 'YOLO' is a brand of yogurt.",
+    clapback: "And you're so stupid you thought 'FOMO' was a new Pokemon.",
+    category: "intelligence"
+},
+{
+    insult: "Your family tree is so twisted it's actually a noose.",
+    clapback: "And yours is so short it's just a stump.",
+    category: "family"
+},
+{
+    insult: "You're so lazy you consider breathing manual labor.",
+    clapback: "And you're so unmotivated your screensaver is just black.",
+    category: "life"
+},
+{
+    insult: "You look like you were designed by committee.",
+    clapback: "And you look like you were approved by someone who stopped caring.",
+    category: "appearance"
+},
+{
+    insult: "You're so stupid you think 'ASAP' is a brand of napkins.",
+    clapback: "And you're so dumb you thought 'NSFW' was a radio station.",
+    category: "intelligence"
+},
+{
+    insult: "Your parents are so ashamed they tell people you're their imaginary friend.",
+    clapback: "And yours are so disappointed they tell people you're their imaginary enemy.",
+    category: "family"
+},
+{
+    insult: "You're so boring your shadow gets bored and leaves.",
+    clapback: "And you're so dull your reflection falls asleep.",
+    category: "life"
+},
+{
+    insult: "You look like you were designed by someone who hated humanity.",
+    clapback: "And you look like you were approved by someone who hated art.",
+    category: "appearance"
+},
+{
+    insult: "You're so stupid you think 'LMAO' is a new dance move.",
+    clapback: "And you're so dumb you thought 'ROFL' was a type of bread.",
+    category: "intelligence"
+},
+{
+    insult: "Your family tree is so tangled it's actually a knot.",
+    clapback: "And yours is so short it's just a seed.",
+    category: "family"
+},
+{
+    insult: "You're so lazy you consider thinking exercise.",
+    clapback: "And you're so unmotivated your spirit animal is a rock.",
+    category: "life"
+}
+        ];
+        
+        // DOM elements
+        const insultEl = document.getElementById('insult');
+        const clapbackEl = document.getElementById('clapback');
+        const newClapbackBtn = document.getElementById('new-clapback-btn');
+        const revealBtn = document.getElementById('reveal-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const stars = document.querySelectorAll('.star');
+        const clapbackCounterEl = document.getElementById('clapback-counter');
+        const soulsCounterEl = document.getElementById('souls-counter');
+        const categories = document.querySelectorAll('.category');
+        const clapbackContainer = document.querySelector('.clapback-container');
+        
+        // State
+        let currentClapback = null;
+        let clapbackCount = 0;
+        let soulsCount = 0;
+        let currentCategory = 'all';
+        
+        // Initialize
+        updateCounters();
+        getRandomClapback();
+        
+        // Event listeners
+        newClapbackBtn.addEventListener('click', getRandomClapback);
+        revealBtn.addEventListener('click', revealClapback);
+        shareBtn.addEventListener('click', shareClapback);
+        
+        stars.forEach(star => {
+            star.addEventListener('click', rateClapback);
+        });
+        
+        categories.forEach(category => {
+            category.addEventListener('click', () => {
+                categories.forEach(c => c.classList.remove('active'));
+                category.classList.add('active');
+                currentCategory = category.dataset.category;
+                getRandomClapback();
+            });
+        });
+        
+        // Functions
+        function getRandomClapback() {
+            clapbackEl.classList.remove('show');
+            
+            let filteredClapbacks = clapbacks;
+            if (currentCategory !== 'all') {
+                filteredClapbacks = clapbacks.filter(clapback => clapback.category === currentCategory);
+            }
+            
+            if (filteredClapbacks.length === 0) {
+                insultEl.textContent = "No clapbacks in this category brutal enough... yet.";
+                clapbackEl.textContent = "Check back after someone gets roasted into oblivion.";
+                return;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * filteredClapbacks.length);
+            currentClapback = filteredClapbacks[randomIndex];
+            
+            insultEl.classList.remove('fade-in');
+            void insultEl.offsetWidth; // Trigger reflow
+            insultEl.classList.add('fade-in');
+            
+            insultEl.textContent = currentClapback.insult;
+            clapbackEl.textContent = currentClapback.clapback;
+            
+            clapbackCount++;
+            updateCounters();
+            
+            // Add blood splatter effect randomly
+            if (Math.random() > 0.7) {
+                addBloodSplatter();
+            }
+        }
+        
+        function revealClapback() {
+            clapbackEl.classList.add('show');
+        }
+        
+        function rateClapback(e) {
+            const rating = parseInt(e.target.dataset.rating);
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+            
+            soulsCount += rating;
+            updateCounters();
+        }
+        
+        function updateCounters() {
+            clapbackCounterEl.textContent = clapbackCount;
+            soulsCounterEl.textContent = soulsCount;
+        }
+        
+        function addBloodSplatter() {
+            const blood = document.createElement('div');
+            blood.className = 'blood';
+            
+            // Random position and size
+            const size = Math.random() * 100 + 50;
+            const x = Math.random() * 80 + 10;
+            const y = Math.random() * 80 + 10;
+            const rotation = Math.random() * 360;
+            
+            blood.style.width = `${size}px`;
+            blood.style.height = `${size}px`;
+            blood.style.left = `${x}%`;
+            blood.style.top = `${y}%`;
+            blood.style.transform = `rotate(${rotation}deg)`;
+            blood.style.opacity = '0.3';
+            
+            clapbackContainer.appendChild(blood);
+            
+            // Remove after animation
+            setTimeout(() => {
+                blood.remove();
+            }, 3000);
+        }
+        
+        function shareClapback() {
+            if (!currentClapback) return;
+            
+            const text = `"${currentClapback.insult}"\n🔥 "${currentClapback.clapback}"\n\nGet more brutal clapbacks at: [URL]`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Dark Brutal Clapback',
+                    text: text,
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                    copyToClipboard(text);
+                });
+            } else {
+                copyToClipboard(text);
+                alert('Copied to clipboard! Paste it anywhere to share.');
+            }
+        }
+        
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+        
+        // Easter egg - change title when tab is inactive
+        let originalTitle = document.title;
+        
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                document.title = "Come back... we miss your suffering.";
+            } else {
+                document.title = originalTitle;
+            }
+        });
+    </script>
+</body>
+</html>
